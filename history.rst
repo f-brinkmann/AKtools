@@ -1,3 +1,7 @@
+V1.3.0: November 13, 2024
+-------------------------
+- added AKnAFCStatisticsDemo
+
 V1.2.1: February 26, 2024
 -------------------------
 - Ported to GIT (without history)
