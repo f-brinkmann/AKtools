@@ -1,4 +1,10 @@
 ###############################################################################
+# AKtools specific ignores
+###############################################################################
+
+2_Tools/ThirdParty/SOFA\ Toolbox\ for\ Matlab\ and\ Octave\ 2.2.0/SOFAtoolbox/conventions/*.mat
+
+###############################################################################
 # From https://github.com/github/gitignore/blob/main/Global/MATLAB.gitignore
 ###############################################################################
 # Windows default autosave extension
