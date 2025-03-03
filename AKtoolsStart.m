@@ -16,6 +16,7 @@
 % limitations under  the License.
 
 % -------- check if third party tools are already installed outside AKtools
+% (re-install if they come from AKtools to be up to date)
 installed.playrec  = false;
 installed.pa_wav   = false;
 installed.SOFA     = false;
@@ -49,17 +50,21 @@ addpath(genpath(fullfile(pwd,'1_DemoScripts')), '-end')
 addpath(genpath(fullfile(pwd,'2_Tools')), '-end')
 
 % add SOFA correctly using the start script (try if the silent option works)
-rmpath(genpath(fullfile(pwd,'2_Tools', 'ThirdParty', 'SOFA_API_MO_1.0.2')))
-if exist('SOFAgetVersion', 'file') == 2
+if installed.SOFA
     disp('Using installed SOFA API for Matlab located at')
     disp(which('SOFAgetVersion'))
 else
-    disp('Installing SOFA API for Matlab located from')
-    disp(fullfile(pwd, '2_Tools', 'ThirdParty', 'SOFA_API_MO'))
+    sofa_path = fullfile(pwd,'2_Tools', 'ThirdParty', ...
+        'SOFA Toolbox for Matlab and Octave 2.2.0');
+    disp('Installing SOFAtoolbox for Matlab from')
+    disp(sofa_path)
+    rmpath(genpath(sofa_path))                    % clean path (just in case)
+    addpath(fullfile(sofa_path, 'SOFAtoolbox'))   % add base to make start
+                                                  % script available
     try
-        run(fullfile(pwd, '2_Tools', 'ThirdParty', 'SOFA_API_MO', 'SOFAstart(''silent'')'))
+        SOFAstart('silent', 'restart')
     catch %#ok<CTCH>
-        run(fullfile(pwd, '2_Tools', 'ThirdParty', 'SOFA_API_MO', 'SOFAstart.m'))
+        SOFAstart('restart')
     end
 end
 
@@ -179,4 +184,4 @@ if add_context
     end
 end
 
-clear startup_file startup_line fid add_context
+clear startup_file startup_line fid add_context sofa_path
